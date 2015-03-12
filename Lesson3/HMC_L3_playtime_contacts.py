@@ -82,14 +82,15 @@ html += "</table>\n"
 html += "</body></html>"
 print
 #print html
-fstream = open("..\static\contacts.html", "w")
+fstream = open("..\static\contacts.html", "w")	#this is old school style/way of opening a file
 fstream.write(html)
-fstream.close()
+fstream.close() 	#since not using the 'with' statement, closing file handler explicitly with close() is needed 
 
 # Goal 4: Instead of reading in the contacts from the dictionary above, read them in from contacts.csv, which you can find in lesson_07_(files).
 #
-inStream = open("..\static\contacts.csv", "r")
-contact_list = inStream.readlines()
+with open("..\static\contacts.csv", "r") as inStream:
+	contact_list = inStream.readlines()
+# since I use the 'with' statement, closing file handler explicitly with close() is not necessary as the system will automatically close the file handler when the 'with' block is exited:
 html = ""
 html += "<!DOCTYPE html>\n"
 html += "<html><head><title>HMC Playtime: Read from Contacts CSV</title></head>\n"
@@ -111,3 +112,7 @@ html += "</body></html>"
 outStream = open("..\static\contacts_csv.html", "w")
 outStream. write(html)
 outStream.close()
+
+# the last 3 lines of code can also be rewritten using the 'with' statement and the call to close the file handler is not needed when using the 'with' statement as it will be closed automatically when the 'with' block is exited:
+#with open("..\static\contacts_csv.html", "w") as outStream:
+#	outStream.write(html)	
